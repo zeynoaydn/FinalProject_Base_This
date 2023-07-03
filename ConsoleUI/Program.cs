@@ -22,10 +22,19 @@ namespace ConsoleUI
         private static void ProductTestDto()
         {
             ProductManager productManager = new ProductManager(new EfProductDal());
-            foreach (var item in productManager.GetProductDetails())
+            var result = productManager.GetProductDetails();
+            if(result.Success)
             {
-                Console.WriteLine(item.ProductName+" "+item.ProductId);
+                foreach (var item in result.Data)
+                {
+                    Console.WriteLine(item.ProductName + " " + item.ProductId);
+                }
             }
+            else
+            {
+                Console.WriteLine(result.Message);
+            }
+            
         }
         private static void CategoryTest()
         {
@@ -36,14 +45,14 @@ namespace ConsoleUI
             }
         }
 
-        private static void ProductTest()
-        {
-            ProductManager productManager = new ProductManager(new EfProductDal());
-            foreach (var item in productManager.GetByUnitPrice(20, 100))
-            {
-                Console.WriteLine(item.ProductName);
-            }
-        }
+        //private static void ProductTest()
+        //{
+        //    ProductManager productManager = new ProductManager(new EfProductDal());
+        //    foreach (var item in productManager.GetByUnitPrice(20, 100))
+        //    {
+        //        Console.WriteLine(item.ProductName);
+        //    }
+        //}
 
 
     }
